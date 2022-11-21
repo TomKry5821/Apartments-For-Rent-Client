@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "dsznajder.es7-react-js-snippets",
+        "eg2.vscode-npm-script",
+        "esbenp.prettier-vscode"
+    ]
+}
