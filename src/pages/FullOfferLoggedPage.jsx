@@ -5,8 +5,8 @@
 
 import React from "react";
 import "../index.css";
-import FullOfferLogged from "../coponents/FullOfferLogged";
-import NavbarLogged from "../coponents/NavbarLogged";
+import FullOfferLogged from "../coponents/logged/FullOfferLogged";
+import NavbarLogged from "../coponents/logged/NavbarLogged";
 
 const FullOfferLoggedPage = function () {
   return (
