@@ -4,9 +4,8 @@ import { Button, Grid } from "@mui/material";
 import React from "react";
 import "../index.css";
 import { useNavigate } from "react-router-dom";
-import LoginIcon from "@mui/icons-material/Login";
 
-const Navbar = function () {
+const NavbarMain = function () {
   const navigate = useNavigate();
   return (
     <Grid container direction="row" justifyContent="space-between">
@@ -23,9 +22,10 @@ const Navbar = function () {
             navigate("/");
           }}
         >
-          SUPER MIESZKANIA
+          super mieszkania
         </Button>{" "}
       </Grid>
+
       <Grid item alignSelf="flex-end">
         <Grid container spacing={1} direction="row">
           <Grid item>
@@ -36,12 +36,11 @@ const Navbar = function () {
                 backgroundColor: "rgb(243, 249, 251);",
                 fontFamily: "Titillium Web, sans-serif;",
               }}
-              icon={<LoginIcon />}
               onClick={() => {
                 navigate("/login");
               }}
             >
-              ZALOGUJ SIĘ
+              zaloguj się
             </Button>
           </Grid>
           <Grid item>
@@ -52,12 +51,11 @@ const Navbar = function () {
                 backgroundColor: "rgb(243, 249, 251);",
                 fontFamily: "Titillium Web, sans-serif;",
               }}
-              icon={<LoginIcon />}
               onClick={() => {
                 navigate("/register");
               }}
             >
-              ZARESJESTRUJ SIĘ
+              zarejestruj się
             </Button>
           </Grid>
         </Grid>
@@ -66,4 +64,4 @@ const Navbar = function () {
   );
 };
 
-export default Navbar;
+export default NavbarMain;

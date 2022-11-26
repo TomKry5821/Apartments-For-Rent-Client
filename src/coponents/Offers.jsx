@@ -14,9 +14,9 @@ import { useNavigate } from "react-router-dom";
 import img1 from "../images/photo1.jpeg";
 import img2 from "../images/photo2.jpeg";
 import img3 from "../images/photo3.jpeg";
-import OfferDetails from "./OfferDetails";
+import OfferDetailsOnMain from "./OfferDetailsOnMain";
 
-const OffersLogged = function () {
+const Offers = function () {
   const navigate = useNavigate();
   return (
     <Grid
@@ -34,13 +34,13 @@ const OffersLogged = function () {
           />
           <CardMedia component="img" height="194" image={img1} alt="photo1" />
           <CardContent>
-            <OfferDetails />
+            <OfferDetailsOnMain />
           </CardContent>
           <CardActions>
             <IconButton
               aria-label="add to favorites"
               onClick={() => {
-                alert("Dodano do ulubionych :)");
+                alert("Aby dodać ofertę do ulubionych - zaloguj się :)");
               }}
             >
               <FavoriteIcon />
@@ -48,7 +48,7 @@ const OffersLogged = function () {
             <IconButton
               aria-label="see more"
               onClick={() => {
-                navigate("/logged/offer");
+                navigate("/offer");
               }}
             >
               <ArrowRightAltIcon />
@@ -64,13 +64,13 @@ const OffersLogged = function () {
           />
           <CardMedia component="img" height="194" image={img3} alt="photo2" />
           <CardContent>
-            <OfferDetails />
+            <OfferDetailsOnMain />
           </CardContent>
           <CardActions>
             <IconButton
               aria-label="add to favorites"
               onClick={() => {
-                alert("Dodano do ulubionych :)");
+                alert("Aby dodać ofertę do ulubionych - zaloguj się:)");
               }}
             >
               <FavoriteIcon />
@@ -78,7 +78,7 @@ const OffersLogged = function () {
             <IconButton
               aria-label="see more"
               onClick={() => {
-                navigate("/logged/offer");
+                navigate("/offer");
               }}
             >
               <ArrowRightAltIcon />
@@ -94,13 +94,13 @@ const OffersLogged = function () {
           />
           <CardMedia component="img" height="194" image={img2} alt="photo1" />
           <CardContent>
-            <OfferDetails />
+            <OfferDetailsOnMain />
           </CardContent>
           <CardActions>
             <IconButton
               aria-label="add to favorites"
               onClick={() => {
-                alert("Dodano do ulubionych :)");
+                alert("Aby dodać ofertę do ulubionych - zaloguj się :)");
               }}
             >
               <FavoriteIcon />
@@ -108,7 +108,7 @@ const OffersLogged = function () {
             <IconButton
               aria-label="see more"
               onClick={() => {
-                navigate("/logged/offer");
+                navigate("/offer");
               }}
             >
               <ArrowRightAltIcon />
@@ -120,4 +120,4 @@ const OffersLogged = function () {
   );
 };
 
-export default OffersLogged;
+export default Offers;

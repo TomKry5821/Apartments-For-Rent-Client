@@ -81,7 +81,7 @@ const NavbarRegister = function () {
                   navigate("/logged");
                 }}
               >
-                ZAREJESTRUJ SIĘ
+                zarejestruj się
               </Button>
             </Grid>
           </Grid>
