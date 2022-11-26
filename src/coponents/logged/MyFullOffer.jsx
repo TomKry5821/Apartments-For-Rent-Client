@@ -2,19 +2,20 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-props-no-spreading */
 import * as React from "react";
-import { Card, CardHeader, CardContent, Grid, Paper } from "@mui/material";
+import { Card, CardHeader, CardContent, Grid, Button } from "@mui/material";
 import { Carousel } from "react-responsive-carousel";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import MessageIcon from "@mui/icons-material/Message";
-import OfferDetails from "./OfferDetails";
-import kitchen from "../images/kitchen.jpeg";
-import livingRoom from "../images/livingRoom.jpeg";
-import bedroom from "../images/bedroom.jpeg";
-import garage from "../images/garage.jpeg";
-import view from "../images/view.jpeg";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useNavigate } from "react-router-dom";
+import OfferDetails from "../OfferDetails";
+import kitchen from "../../images/kitchen.jpeg";
+import livingRoom from "../../images/livingRoom.jpeg";
+import bedroom from "../../images/bedroom.jpeg";
+import garage from "../../images/garage.jpeg";
+import view from "../../images/view.jpeg";
 
-const FullOffer = function () {
+const MyFullOffer = function () {
+  const navigate = useNavigate();
+
   return (
     <Grid container justifyContent="space-between">
       <Grid item>
@@ -60,36 +61,43 @@ const FullOffer = function () {
             </Card>
           </Grid>
           <Grid item>
-            <Paper>
-              <Grid container direction="row" justifyContent="space-around">
-                <Grid item>
-                  <IconButton
-                    aria-label="write a message"
-                    onClick={() => {
-                      alert(
-                        "Aby wysłać wiadomość do innego użytkownika - zaloguj się :)"
-                      );
-                    }}
-                  >
-                    <MessageIcon />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <IconButton
-                    aria-label="add to favorites"
-                    onClick={() => {
-                      alert("Aby dodać ofertę do ulubionych - zaloguj się :)");
-                    }}
-                  >
-                    <FavoriteIcon />
-                  </IconButton>
-                </Grid>
+            <Grid container direction="row" justifyContent="space-around">
+              <Grid item>
+                <Button
+                  variant="contained"
+                  sx={{
+                    color: "rgb(17, 63, 103);",
+                    backgroundColor: "rgb(243, 249, 251);",
+                    fontFamily: "Titillium Web, sans-serif;",
+                  }}
+                  onClick={() => {
+                    navigate("/logged/profile/offer/edit");
+                  }}
+                >
+                  edytuj
+                </Button>
               </Grid>
-            </Paper>
+
+              <Grid item>
+                <Button
+                  variant="contained"
+                  sx={{
+                    color: "rgb(17, 63, 103);",
+                    backgroundColor: "rgb(243, 249, 251);",
+                    fontFamily: "Titillium Web, sans-serif;",
+                  }}
+                  onClick={() => {
+                    navigate("/logged/profile");
+                  }}
+                >
+                  mój profil
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
     </Grid>
   );
 };
-export default FullOffer;
+export default MyFullOffer;

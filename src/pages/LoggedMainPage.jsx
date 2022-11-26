@@ -2,8 +2,8 @@
 import { React } from "react";
 import { Grid } from "@mui/material";
 import Filter from "../coponents/Filter";
-import OffersLogged from "../coponents/OffersLogged";
-import NavbarLogged from "../coponents/NavbarLogged";
+import OffersLogged from "../coponents/logged/OffersLogged";
+import NavbarLogged from "../coponents/logged/NavbarLogged";
 
 const LoggedMainPage = function () {
   return (

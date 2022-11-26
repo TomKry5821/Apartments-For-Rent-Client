@@ -36,6 +36,7 @@ const NavbarLogin = function () {
           SUPER MIESZKANIA
         </Button>{" "}
       </Grid>
+
       <Grid item>
         <Container>
           <Grid container direction="row" spacing={1}>
@@ -70,7 +71,7 @@ const NavbarLogin = function () {
                   navigate("/logged");
                 }}
               >
-                ZALOGUJ SIĘ
+                zaloguj się
               </Button>
             </Grid>
           </Grid>

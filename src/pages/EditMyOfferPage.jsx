@@ -5,10 +5,10 @@
 
 import React from "react";
 import "../index.css";
-import FullOfferLogged from "../coponents/logged/FullOfferLogged";
+import EditMyOffer from "../coponents/logged/EditMyOffer";
 import NavbarLogged from "../coponents/logged/NavbarLogged";
 
-const FullOfferLoggedPage = function () {
+const EditMyOfferPage = function () {
   return (
     <div className="main-container">
       <div className="navStrip">
@@ -18,11 +18,11 @@ const FullOfferLoggedPage = function () {
       </div>
       <div className="searchBG">
         <div className="searchBar">
-          <FullOfferLogged />
+          <EditMyOffer />
         </div>
       </div>
     </div>
   );
 };
 
-export default FullOfferLoggedPage;
+export default EditMyOfferPage;
