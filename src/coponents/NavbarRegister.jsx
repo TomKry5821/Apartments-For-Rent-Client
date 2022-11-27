@@ -59,6 +59,7 @@ const NavbarRegister = function () {
                   hasło
                 </InputLabel>
                 <Input
+                type="password"
                   id="haslo"
                   label="haslo"
                   endAdornment={
