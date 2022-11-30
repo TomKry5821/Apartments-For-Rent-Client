@@ -13,6 +13,9 @@
   "eslint.workingDirectories": [
     "./{PATH_TO_CLIENT}" // replace {PATH_TO_CLIENT} with you own path
   ],
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
   
 }

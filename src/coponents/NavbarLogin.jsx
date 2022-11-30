@@ -14,10 +14,18 @@ import {
 } from "@mui/material";
 import React from "react";
 import "../index.css";
+import { useContext } from 'react'
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const NavbarLogin = function () {
   const navigate = useNavigate();
+
+  const { loginUser, error } = useContext(UserContext)
+  const email = useRef("")
+  const password = useRef("")
+
   return (
     <Grid container direction="row" justifyContent="space-between">
       <Grid item>
@@ -41,7 +49,11 @@ const NavbarLogin = function () {
         <Container>
           <Grid container direction="row" spacing={1}>
             <Grid item>
-              <TextField id="mail" label="e-mail" variant="standard" />
+              <TextField
+                id="mail"
+                label="e-mail"
+                variant="standard"
+                inputRef={email} />
             </Grid>
             <Grid item>
               <FormControl variant="standard">
@@ -52,6 +64,7 @@ const NavbarLogin = function () {
                   type="password"
                   id="haslo"
                   label="haslo"
+                  inputRef={password}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton aria-label="toggle password visibility" />
@@ -69,7 +82,15 @@ const NavbarLogin = function () {
                   fontFamily: "Titillium Web, sans-serif;",
                 }}
                 onClick={() => {
-                  navigate("/logged");
+                  loginUser(
+                    email.current.value,
+                    password.current.value
+                  );
+                  if (error != null) {
+                    alert("Invalid e-mail or password");
+                  } else {
+                    navigate("/logged");
+                  }
                 }}
               >
                 zaloguj się
