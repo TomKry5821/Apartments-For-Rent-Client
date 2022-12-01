@@ -4,8 +4,38 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
+import { useEffect, useState, useCallback } from "react";
+import axios from 'axios';
 
 const PersonalData = function () {
+  const [userDetails, setUserDetails] = useState(null);
+  const [userId, setUserId] = useState(0);
+
+  const getUserDetails = useCallback(() => {
+    axios.get(`http://localhost:8010/user/api/v1/users/${userId}/details`,
+      {
+        withCredentials: true,
+        headers: {
+          'Authorization': localStorage.getItem("authorizationToken"),
+          'Content-Type': 'application/json'
+        }
+      }).then(
+        (response) => {
+          setUserDetails(response.data);
+          console.log(response);
+        }
+      );
+  }, [userId]);
+
+  useEffect(() => {
+    if (userId) getUserDetails();
+  }, [getUserDetails, userId]);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    setUserId(userId);
+  }, [setUserId]);
+
   return (
     <Card sx={{ width: "800px" }}>
       <CardContent>
@@ -52,23 +82,31 @@ const PersonalData = function () {
             >
               <Grid item>
                 <Typography sx={{ fontSize: 18 }} color="text.secondary">
-                  Kasia
+                  {!!userDetails && (
+                    <strong>{userDetails.name} </strong>
+                  )}
                 </Typography>
               </Grid>
 
               <Grid item>
                 <Typography sx={{ fontSize: 18 }} color="text.secondary">
-                  Kowalczewska
+                  {!!userDetails && (
+                    <strong>{userDetails.surname} </strong>
+                  )}
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography sx={{ fontSize: 18 }} color="text.secondary">
-                  kasia.kowa123@gmail.com
+                  {!!userDetails && (
+                    <strong>{userDetails.email} </strong>
+                  )}
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography sx={{ fontSize: 18 }} color="text.secondary">
-                  ******
+                  {!!userDetails && (
+                    <strong>{userDetails.password} </strong>
+                  )}
                 </Typography>
               </Grid>
             </Grid>
