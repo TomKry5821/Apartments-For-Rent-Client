@@ -37,11 +37,12 @@ const NavbarLogged = function () {
       }
     }).then((data) => {
       console.log('Success:', data);
+      alert("Wylogowano pomyślnie");
       navigate("/");
     })
       .catch((error) => {
         console.error('Error:', error);
-        alert("Something went wrong, try again");
+        alert("Coś poszło nie tak, spróbuj jeszcze raz");
       });
   }
   return (

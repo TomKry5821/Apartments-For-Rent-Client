@@ -50,12 +50,11 @@ const NavbarRegister = function () {
         console.log('Success:', data);
         localStorage.setItem("userId", data.id);
         localStorage.setItem("authorizationToken", data.accessToken);
-        setError(false);
+        alert("Pomyślnie zarejestrowano użytkownika o adresie e-mail - " + data.email);
         navigate("/logged");
       })
       .catch((error) => {
         console.error('Error:', error);
-        setError(true);
         alert("Something went wrong, try again");
       });
   }

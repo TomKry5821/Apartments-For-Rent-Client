@@ -43,13 +43,12 @@ const NavbarLogin = function () {
         console.log('Success:', data);
         localStorage.setItem("userId", data.id);
         localStorage.setItem("authorizationToken", data.accessToken);
-        setError(false);
+        alert("Pomyślnie zalogowano");
         navigate("/logged");
       })
       .catch((error) => {
         console.error('Error:', error);
-        setError(true);
-        alert("Invalid e-mail or password");
+        alert("Coś poszło nie tak, spróbuj jeszcze raz");
       });
   }
 
@@ -68,7 +67,7 @@ const NavbarLogin = function () {
             navigate("/");
           }}
         >
-          SUPER MIESZKANIA
+          AFR
         </Button>{" "}
       </Grid>
 
