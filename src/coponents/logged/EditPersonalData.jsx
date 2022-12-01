@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import * as React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import {
   Grid,
@@ -8,22 +8,48 @@ import {
   Typography,
   Card,
   CardContent,
-  IconButton,
+  Button,
 } from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const EditPersonalData = function () {
-  const [values, setValues] = useState({
-    password: "",
-    showPassword: false,
-  });
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
+  const userId = localStorage.getItem("userId");
+  const authotizationToken = localStorage.getItem("authorizationToken");
+  const name = localStorage.getItem("userName");
+  const surname = localStorage.getItem("userSurname");
+  const email = localStorage.getItem("userEmail");
+  const password = localStorage.getItem("userPassword");
+  const newName = useRef("");
+  const newSurname = useRef("");
+  const newEmail = useRef("");
+  const newPassword = useRef("");
+
+  const changeUserDetails = function (name, surname, email, password) {
+    const URL = "http://localhost:8010";
+    const body = {
+      "name": name,
+      "surname": surname,
+      "email": email,
+      "isActive": true,
+      "password": password
+    };
+    fetch(URL + "/user/api/v1/users/" + userId + "/details", {
+      method: "PUT",
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': authotizationToken
+      }
+    }).then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        alert("Pomyślnie zmieniono dane użytkownika o adresie e-mail - " + email);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Coś poszło nie tak, spróbuj jeszcze raz");
+      });
+  }
+
   return (
     <Card sx={{ width: "800px" }}>
       <CardContent>
@@ -69,32 +95,44 @@ const EditPersonalData = function () {
               justifyContent="center"
             >
               <Grid item>
-                <TextField defaultValue="Kasia" />
+                <TextField
+                  inputRef={newName}
+                  defaultValue={name}
+                />
               </Grid>
 
               <Grid item>
-                <TextField defaultValue="Kowalczewska" />
+                <TextField
+                  defaultValue={surname}
+                  inputRef={newSurname}
+                />
               </Grid>
               <Grid item>
-                <TextField defaultValue="kasia.kowa123@gmail.com" />
+                <TextField
+                  defaultValue={email}
+                  inputRef={newEmail}
+                />
               </Grid>
               <Grid item>
                 <TextField
                   htmlFor="outlined-adornment-password"
-                  defaultValue="haslo123."
+                  defaultValue={password}
+                  inputRef={newPassword}
                 >
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
                 </TextField>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
+        <Button
+          onClick={() => {
+            changeUserDetails(newName.current.value,
+              newSurname.current.value,
+              newEmail.current.value,
+              newPassword.current.value);
+          }}>
+          Zmień dane
+        </Button>
       </CardContent>
     </Card>
   );
