@@ -22,6 +22,10 @@ const PersonalData = function () {
       }).then(
         (response) => {
           setUserDetails(response.data);
+          localStorage.setItem("userName", response.data.name);
+          localStorage.setItem("userSurname", response.data.surname);
+          localStorage.setItem("userEmail", response.data.email);
+          localStorage.setItem("userPassword", response.data.password);
           console.log(response);
         }
       );
