@@ -13,22 +13,52 @@ import {
   IconButton,
 } from "@mui/material";
 import React from "react";
-import { useContext } from 'react'
 import { useRef } from "react";
 import "../index.css";
 import { useNavigate } from "react-router-dom";
 
-import { UserContext } from "../context/UserContext";
+import { useState } from 'react';
+
 
 const NavbarRegister = function () {
-
-  const { registerNewUser, error } = useContext(UserContext)
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
   const name = useRef("");
   const surname = useRef("");
   const email = useRef("");
   const password = useRef("");
+
+  const registerNewUser = function (name, surname, email, password) {
+    const URL = "http://localhost:8010";
+    const body = {
+      "name": name,
+      "surname": surname,
+      "email": email,
+      "isActive": true,
+      "password": password
+    }
+    fetch(URL + "/user/api/v1/public/users", {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ''
+      }
+    }).then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        localStorage.setItem("userId", data.id);
+        localStorage.setItem("authorizationToken", data.accessToken);
+        setError(false);
+        navigate("/logged");
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        setError(true);
+        alert("Something went wrong, try again");
+      });
+  }
 
   return (
     <Grid container direction="row" justifyContent="space-between">
@@ -107,11 +137,6 @@ const NavbarRegister = function () {
                     email.current.value,
                     password.current.value
                   );
-                  if (error != null) {
-                    alert(error);
-                  } else {
-                    navigate("/logged");
-                  }
                 }}
               >
                 zarejestruj się
