@@ -12,12 +12,41 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { useNavigate } from "react-router-dom";
 import img1 from "../images/photo1.jpeg";
-import img2 from "../images/photo2.jpeg";
-import img3 from "../images/photo3.jpeg";
 import OfferDetailsOnMain from "./OfferDetailsOnMain";
+import { useEffect, useState, useCallback } from "react";
+
 
 const Offers = function () {
   const navigate = useNavigate();
+  const [announcements, setAnnouncements] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const getAnnouncements = function () {
+    const URL = "http://localhost:8010";
+    fetch(URL + "/announcement/api/v1/public/announcements", {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        setAnnouncements[data];
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Coś poszło nie tak");
+      });
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    getAnnouncements();
+    setLoading(false);
+    aler
+  }, []);
+
+  if (loading) return <p>Loading...</p>
   return (
     <Grid
       container
@@ -33,66 +62,6 @@ const Offers = function () {
             subheader="14 Wrzesień 2022"
           />
           <CardMedia component="img" height="194" image={img1} alt="photo1" />
-          <CardContent>
-            <OfferDetailsOnMain />
-          </CardContent>
-          <CardActions>
-            <IconButton
-              aria-label="add to favorites"
-              onClick={() => {
-                alert("Aby dodać ofertę do ulubionych - zaloguj się :)");
-              }}
-            >
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton
-              aria-label="see more"
-              onClick={() => {
-                navigate("/offer");
-              }}
-            >
-              <ArrowRightAltIcon />
-            </IconButton>
-          </CardActions>
-        </Card>
-      </Grid>
-      <Grid item>
-        <Card sx={{ maxWidth: 300 }}>
-          <CardHeader
-            title="Niezwykły apartament na uboczu Warszawy"
-            subheader="1 Październik 2022"
-          />
-          <CardMedia component="img" height="194" image={img3} alt="photo2" />
-          <CardContent>
-            <OfferDetailsOnMain />
-          </CardContent>
-          <CardActions>
-            <IconButton
-              aria-label="add to favorites"
-              onClick={() => {
-                alert("Aby dodać ofertę do ulubionych - zaloguj się:)");
-              }}
-            >
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton
-              aria-label="see more"
-              onClick={() => {
-                navigate("/offer");
-              }}
-            >
-              <ArrowRightAltIcon />
-            </IconButton>
-          </CardActions>
-        </Card>
-      </Grid>
-      <Grid item>
-        <Card sx={{ maxWidth: 300 }}>
-          <CardHeader
-            title="Przestronna kawalerka na starówce w Łodzi"
-            subheader="9 Sierpień 2022"
-          />
-          <CardMedia component="img" height="194" image={img2} alt="photo1" />
           <CardContent>
             <OfferDetailsOnMain />
           </CardContent>
