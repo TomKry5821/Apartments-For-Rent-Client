@@ -67,7 +67,7 @@ const AddOffer = function () {
     data.append('rentalTerm', rentalTerm.current.value);
     data.append('caution', caution.current.value);
     data.append('rentalAmount', rentalAmount.current.value);
-    data.append('content', content.current.value);
+    data.append('content', document.getElementById("content").value);
     data.append('district', district.current.value);
     data.append('city', city.current.value);
     data.append('zipCode', zipCode.current.value);
@@ -118,6 +118,7 @@ const AddOffer = function () {
                       <br></br>
                       <FormLabel>Treść ogłoszenia</FormLabel>
                       <textarea
+                        id="content"
                         type='text'
                         inputRef={content} />
                       <br></br>
