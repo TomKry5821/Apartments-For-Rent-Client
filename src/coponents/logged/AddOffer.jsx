@@ -8,14 +8,14 @@ import {
   CardHeader,
   Grid,
   TextField,
-  Input
+  Input,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper
 } from "@mui/material";
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-} from '@chakra-ui/react'
 import * as React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,7 @@ const AddOffer = function () {
   const caution = useRef(0);
   const rentalAmount = useRef(0);
   const district = useRef("");
-  const city = useRef("")
+  const city = useRef("");
   const zipCode = useRef("");
   const street = useRef("");
   const buildingNumber = useRef("");
@@ -67,7 +67,7 @@ const AddOffer = function () {
     data.append('rentalTerm', rentalTerm.current.value);
     data.append('caution', caution.current.value);
     data.append('rentalAmount', rentalAmount.current.value);
-    data.append('content', document.getElementById("content").value);
+    data.append('content', content.current.value);
     data.append('district', district.current.value);
     data.append('city', city.current.value);
     data.append('zipCode', zipCode.current.value);
@@ -109,84 +109,118 @@ const AddOffer = function () {
               <CardContent>
                 <Grid container direction="column" spacing={3}>
                   <Grid item>
-                    <FormControl
-                      size="lg">
-                      <FormLabel>Tytuł ogłoszenia</FormLabel>
-                      <Input
-                        type='text'
-                        inputRef={title} />
-                      <br></br>
-                      <FormLabel>Treść ogłoszenia</FormLabel>
-                      <textarea
-                        id="content"
-                        type='text'
-                        inputRef={content} />
-                      <br></br>
-                      <FormLabel>Ilość pokoi</FormLabel>
-                      <Input
-                        type='number'
-                        inputRef={roomsNumber} />
-                      <br></br>
-                      <FormLabel>Od kiedy można wynająć</FormLabel>
-                      <Input
-                        type='date'
-                        inputRef={rentalTerm} />
-                      <br></br>
-                      <FormLabel>Wysokość kaucji[zł]</FormLabel>
-                      <Input
-                        type='number'
-                        inputRef={caution} />
-                      <br></br>
-                      <FormLabel>Miesięczna opłata[zł]</FormLabel>
-                      <Input
-                        type='number'
-                        inputRef={rentalAmount} />
-                      <br></br>
-                      <FormLabel>Województwo</FormLabel>
-                      <Input
-                        type='test'
-                        inputRef={district} />
-                      <br></br>
-                      <FormLabel>Miasto</FormLabel>
-                      <Input
-                        type='text'
-                        inputRef={city} />
-                      <br></br>
-                      <FormLabel>Kod pocztowy</FormLabel>
-                      <Input
-                        type='text'
-                        inputRef={zipCode} />
-                      <br></br>
-                      <FormLabel>Ulica</FormLabel>
-                      <Input
-                        type='text'
-                        inputRef={street} />
-                      <br></br>
-                      <FormLabel>Numer budynku</FormLabel>
-                      <Input
-                        type='text'
-                        inputRef={buildingNumber} />
-                      <br></br>
-                      <FormLabel>Numer lokalu</FormLabel>
-                      <Input
-                        type='text'
-                        inputRef={localNumber} />
-                      <br></br>
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        sx={{
-                          color: "rgb(17, 63, 103);",
-                          backgroundColor: "rgb(243, 249, 251);",
-                          fontFamily: "Titillium Web, sans-serif;",
-                        }}
-                        onClick={() => {
-                          addNewAnnouncement();
-                        }}
-                      >
-                        dodaj
-                      </Button>
-                    </FormControl>
+                    <TableContainer component={Paper}>
+                      <Table sx={{ minWidth: 250 }} aria-label="simple table">
+                        <TableRow key="title">
+                          <TableCell scope="row"> Tytuł </TableCell>
+                          <TableCell align="right">
+                            <TextField
+                              align="right"
+                              inputRef={title}
+                            />
+                          </TableCell>
+                        </TableRow>
+                        <TableRow key="district">
+                          <TableCell scope="row"> Województwo </TableCell>
+                          <TableCell align="right">
+                            <TextField
+                              align="right"
+                              inputRef={district}
+                            />
+                          </TableCell>
+                        </TableRow>
+                        <TableRow key="city">
+                          <TableCell scope="row">Miasto</TableCell>
+                          <TableCell align="right">
+                            <TextField
+                              align="right"
+                              inputRef={city} />
+                          </TableCell>
+                        </TableRow>
+                        <TableRow key="zipCode">
+                          <TableCell scope="row">Kod pocztowy</TableCell>
+                          <TableCell align="right">
+                            <TextField
+                              align="right"
+                              inputRef={zipCode}
+                            />
+                          </TableCell>
+                        </TableRow>
+                        <TableRow key="street">
+                          <TableCell scope="row">Ulica</TableCell>
+                          <TableCell align="right">
+                            <TextField
+                              align="right"
+                              inputRef={street}
+                            />
+                          </TableCell>
+                        </TableRow>
+                        <TableRow key="buildingNumber" >
+                          <TableCell scope="row">Numer budynku</TableCell>
+                          <TableCell align="right">
+                            <TextField
+                              align="right"
+                              inputRef={buildingNumber}
+                            />
+                          </TableCell>
+                        </TableRow>
+                        <TableRow key="localNumber">
+                          <TableCell scope="row">Numer lokalu</TableCell>
+                          <TableCell align="right">
+                            <TextField
+                              align="right"
+                              inputRef={localNumber}
+                            />
+                          </TableCell>
+                        </TableRow>
+                        <TableRow key="roomsNumber" >
+                          <TableCell scope="row">Ilość pokoi</TableCell>
+                          <TableCell align="right">
+                            <TextField
+                              align="right"
+                              inputRef={roomsNumber}
+                            />
+                          </TableCell>
+                        </TableRow>
+                        <TableRow key="rentalAmount">
+                          <TableCell scope="row">Opłata miesięczna[zł]</TableCell>
+                          <TableCell align="right">
+                            <TextField
+                              align="right"
+                              inputRef={rentalAmount}
+                            />
+                          </TableCell>
+                        </TableRow>
+                        <TableRow key="caution" >
+                          <TableCell scope="row">Wysokość kaucji[zł]</TableCell>
+                          <TableCell align="right">
+                            <TextField
+                              align="right"
+                              inputRef={caution}
+                            />
+                          </TableCell>
+                        </TableRow>
+                        <TableRow key="rentalTerm">
+                          <TableCell scope="row">Od kiedy można wynająć</TableCell>
+                          <TableCell align="right">
+                            <Input
+                              type="date"
+                              align="right"
+                              inputRef={rentalTerm}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      </Table>
+                    </TableContainer>
+                    <Grid item>
+                      <TextField
+                        id="outlined-multiline-flexible"
+                        multiline
+                        maxRows={20}
+                        fullWidth
+                        inputRef={content}
+                      />
+                    </Grid>
                   </Grid>
                   <Grid item>
                     <Grid container direction="column" justifyContent="space-between">
@@ -213,6 +247,19 @@ const AddOffer = function () {
                     </Grid>
                   </Grid>
                 </Grid>
+                <Button
+                  variant="contained"
+                  sx={{
+                    color: "rgb(17, 63, 103);",
+                    backgroundColor: "rgb(243, 249, 251);",
+                    fontFamily: "Titillium Web, sans-serif;",
+                  }}
+                  onClick={() => {
+                    addNewAnnouncement();
+                  }}
+                >
+                  Dodaj ogłoszenie
+                </Button>
               </CardContent>
             </Card>
           </Grid>
