@@ -6,22 +6,25 @@ import {
   CardContent,
   CardActions,
   Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
 } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { useNavigate } from "react-router-dom";
-import img1 from "../images/photo1.jpeg";
-import OfferDetailsOnMain from "./OfferDetailsOnMain";
 import { useEffect, useState, useCallback } from "react";
 
 
 const Offers = function () {
   const navigate = useNavigate();
-  const [announcements, setAnnouncements] = useState();
-  const [loading, setLoading] = useState(true);
+  const [announcements, setAnnouncements] = useState([]);
 
-  const getAnnouncements = function () {
+  const getAnnouncements = useCallback(() => {
     const URL = "http://localhost:8010";
     fetch(URL + "/announcement/api/v1/public/announcements", {
       method: "GET",
@@ -31,61 +34,96 @@ const Offers = function () {
     }).then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);
-        setAnnouncements[data];
+        setAnnouncements([...data]);
       })
       .catch((error) => {
         console.error('Error:', error);
         alert("Coś poszło nie tak");
       });
-  }
-
-  useEffect(() => {
-    setLoading(true);
-    getAnnouncements();
-    setLoading(false);
-    aler
   }, []);
 
-  if (loading) return <p>Loading...</p>
+  useEffect(() => {
+    getAnnouncements();
+  }, [getAnnouncements]);
+
+  useEffect(() => {
+    console.log(announcements);
+  }, []);
+
+  const navigateToAnnouncementDetails = function (announcementId) {
+    localStorage.setItem("actualAnnouncementDetails", announcementId);
+    navigate("/offer");
+  }
+
   return (
-    <Grid
-      container
-      spacing={5}
-      direction="row"
-      marginBottom={5}
-      marginRight={5}
-    >
-      <Grid item>
-        <Card sx={{ maxWidth: 300 }}>
-          <CardHeader
-            title="Mieszkanie 3 pokojowe - centrum Gliwic"
-            subheader="14 Wrzesień 2022"
-          />
-          <CardMedia component="img" height="194" image={img1} alt="photo1" />
-          <CardContent>
-            <OfferDetailsOnMain />
-          </CardContent>
-          <CardActions>
-            <IconButton
-              aria-label="add to favorites"
-              onClick={() => {
-                alert("Aby dodać ofertę do ulubionych - zaloguj się :)");
-              }}
-            >
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton
-              aria-label="see more"
-              onClick={() => {
-                navigate("/offer");
-              }}
-            >
-              <ArrowRightAltIcon />
-            </IconButton>
-          </CardActions>
-        </Card>
-      </Grid>
-    </Grid>
+    <div>
+      {
+        announcements && announcements.map((announcement) => (
+          <Grid
+            container
+            spacing={5}
+            direction="row"
+            marginBottom={5}
+            marginRight={5}
+          >
+            <Grid item>
+              <Card sx={{ maxWidth: 300 }}>
+                <CardHeader
+                  title={announcement.announcementDetailsDTO.title}
+                  subheader={announcement.username}
+                />
+                <CardMedia component="img"
+                  height="194"
+                  src={"data:image/png;base64," + announcement.announcementDetailsDTO.mainPhoto}
+                />
+                <CardContent>
+                  <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 250 }} aria-label="simple table">
+                      <TableBody>
+                        <TableRow key="district">
+                          <TableCell scope="row">Województwo</TableCell>
+                          <TableCell align="right">{announcement.district}</TableCell>
+                        </TableRow>
+                        <TableRow key="city">
+                          <TableCell scope="row">Miasto</TableCell>
+                          <TableCell align="right">{announcement.city}</TableCell>
+                        </TableRow>
+                        <TableRow key="roomsNumber" >
+                          <TableCell scope="row">Ilość pokoi</TableCell>
+                          <TableCell align="right">{announcement.announcementDetailsDTO.roomsNumber}</TableCell>
+                        </TableRow>
+                        <TableRow key="rentalAmount">
+                          <TableCell scope="row">Opłata miesięczna</TableCell>
+                          <TableCell align="right">{announcement.announcementDetailsDTO.rentalAmount}zł</TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </CardContent>
+                <CardActions>
+                  <IconButton
+                    aria-label="add to favorites"
+                    onClick={() => {
+                      alert("Aby dodać ofertę do ulubionych - zaloguj się :)");
+                    }}
+                  >
+                    <FavoriteIcon />
+                  </IconButton>
+                  <IconButton
+                    aria-label="see more"
+                    onClick={() => {
+                      navigateToAnnouncementDetails(announcement.id)
+                    }}
+                  >
+                    <ArrowRightAltIcon />
+                  </IconButton>
+                </CardActions>
+              </Card>
+            </Grid>
+          </Grid>
+        ))
+      }
+    </div>
   );
 };
 
