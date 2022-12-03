@@ -51,79 +51,78 @@ const Offers = function () {
   }, []);
 
   const navigateToAnnouncementDetails = function (announcementId) {
-    localStorage.setItem("actualAnnouncementDetails", announcementId);
+    localStorage.setItem("announcementId", announcementId);
     navigate("/offer");
   }
 
   return (
-    <div>
+    <Grid
+      container
+      spacing={5}
+      direction="row"
+      marginBottom={5}
+      marginRight={5}
+    >
       {
         announcements && announcements.map((announcement) => (
-          <Grid
-            container
-            spacing={5}
-            direction="row"
-            marginBottom={5}
-            marginRight={5}
-          >
-            <Grid item>
-              <Card sx={{ maxWidth: 300 }}>
-                <CardHeader
-                  title={announcement.announcementDetailsDTO.title}
-                  subheader={announcement.username}
-                />
-                <CardMedia component="img"
-                  height="194"
-                  src={"data:image/png;base64," + announcement.announcementDetailsDTO.mainPhoto}
-                />
-                <CardContent>
-                  <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 250 }} aria-label="simple table">
-                      <TableBody>
-                        <TableRow key="district">
-                          <TableCell scope="row">Województwo</TableCell>
-                          <TableCell align="right">{announcement.district}</TableCell>
-                        </TableRow>
-                        <TableRow key="city">
-                          <TableCell scope="row">Miasto</TableCell>
-                          <TableCell align="right">{announcement.city}</TableCell>
-                        </TableRow>
-                        <TableRow key="roomsNumber" >
-                          <TableCell scope="row">Ilość pokoi</TableCell>
-                          <TableCell align="right">{announcement.announcementDetailsDTO.roomsNumber}</TableCell>
-                        </TableRow>
-                        <TableRow key="rentalAmount">
-                          <TableCell scope="row">Opłata miesięczna</TableCell>
-                          <TableCell align="right">{announcement.announcementDetailsDTO.rentalAmount}zł</TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </CardContent>
-                <CardActions>
-                  <IconButton
-                    aria-label="add to favorites"
-                    onClick={() => {
-                      alert("Aby dodać ofertę do ulubionych - zaloguj się :)");
-                    }}
-                  >
-                    <FavoriteIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="see more"
-                    onClick={() => {
-                      navigateToAnnouncementDetails(announcement.id)
-                    }}
-                  >
-                    <ArrowRightAltIcon />
-                  </IconButton>
-                </CardActions>
-              </Card>
-            </Grid>
+
+          <Grid item>
+            <Card sx={{ maxWidth: 300 }}>
+              <CardHeader
+                title={announcement.announcementDetailsDTO.title}
+                subheader={announcement.username}
+              />
+              <CardMedia component="img"
+                height="194"
+                src={"data:image/png;base64," + announcement.announcementDetailsDTO.mainPhoto}
+              />
+              <CardContent>
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 250 }} aria-label="simple table">
+                    <TableBody>
+                      <TableRow key="district">
+                        <TableCell scope="row">Województwo</TableCell>
+                        <TableCell align="right">{announcement.district}</TableCell>
+                      </TableRow>
+                      <TableRow key="city">
+                        <TableCell scope="row">Miasto</TableCell>
+                        <TableCell align="right">{announcement.city}</TableCell>
+                      </TableRow>
+                      <TableRow key="roomsNumber" >
+                        <TableCell scope="row">Ilość pokoi</TableCell>
+                        <TableCell align="right">{announcement.announcementDetailsDTO.roomsNumber}</TableCell>
+                      </TableRow>
+                      <TableRow key="rentalAmount">
+                        <TableCell scope="row">Opłata miesięczna</TableCell>
+                        <TableCell align="right">{announcement.announcementDetailsDTO.rentalAmount}zł</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </CardContent>
+              <CardActions>
+                <IconButton
+                  aria-label="add to favorites"
+                  onClick={() => {
+                    alert("Aby dodać ofertę do ulubionych - zaloguj się :)");
+                  }}
+                >
+                  <FavoriteIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="see more"
+                  onClick={() => {
+                    navigateToAnnouncementDetails(announcement.id)
+                  }}
+                >
+                  <ArrowRightAltIcon />
+                </IconButton>
+              </CardActions>
+            </Card>
           </Grid>
         ))
       }
-    </div>
+    </Grid>
   );
 };
 
