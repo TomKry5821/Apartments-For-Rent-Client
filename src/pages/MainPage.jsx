@@ -7,7 +7,7 @@ import React from "react";
 import "../index.css";
 import { Grid } from "@mui/material";
 import Filter from "../coponents/Filter";
-import Offers from "../coponents/Offers";
+import AllAnnouncements from "../coponents/AllAnnouncements";
 import NavbarMain from "../coponents/NavbarMain";
 
 const MainPage = function () {
@@ -25,7 +25,7 @@ const MainPage = function () {
               <Filter />
             </Grid>
             <Grid item alignContent="baseline">
-              <Offers />
+              <AllAnnouncements />
             </Grid>
           </Grid>
         </div>

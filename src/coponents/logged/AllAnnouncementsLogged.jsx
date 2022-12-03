@@ -19,7 +19,7 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 
-const OffersLogged = function () {
+const AllAnnouncementsLogged = function () {
   const navigate = useNavigate();
   const [announcements, setAnnouncements] = useState([]);
 
@@ -125,4 +125,4 @@ const OffersLogged = function () {
   );
 };
 
-export default OffersLogged;
+export default AllAnnouncementsLogged;

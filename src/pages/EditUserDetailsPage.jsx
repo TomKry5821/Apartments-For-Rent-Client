@@ -7,9 +7,9 @@ import React from "react";
 import "../index.css";
 import { Grid, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import MyOffers from "../coponents/logged/MyOffers";
+import UserAnnouncements from "../coponents/logged/UserAnnouncements";
 import NavbarLogged from "../coponents/logged/NavbarLogged";
-import EditPersonalData from "../coponents/logged/EditPersonalData";
+import EditUserDetails from "../coponents/logged/EditUserDetails";
 
 const EditMyProfilePage = function () {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const EditMyProfilePage = function () {
             <Grid item>
               <Grid container direction="row" spacing={3}>
                 <Grid item>
-                  <EditPersonalData />
+                  <EditUserDetails />
                 </Grid>
                 <Grid item alignSelf="center">
                   <Button
@@ -56,7 +56,7 @@ const EditMyProfilePage = function () {
               <h2>Moje oferty</h2>
             </Grid>
             <Grid item>
-              <MyOffers />
+              <UserAnnouncements />
             </Grid>
           </Grid>
         </div>

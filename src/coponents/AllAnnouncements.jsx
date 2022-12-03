@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 
 
-const Offers = function () {
+const AllAnnouncements = function () {
   const navigate = useNavigate();
   const [announcements, setAnnouncements] = useState([]);
 
@@ -126,4 +126,4 @@ const Offers = function () {
   );
 };
 
-export default Offers;
+export default AllAnnouncements;

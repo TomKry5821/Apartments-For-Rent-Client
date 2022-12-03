@@ -22,7 +22,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 
-const EditMyOffer = function () {
+const EditUserAnnouncement = function () {
   const navigate = useNavigate();
 
   const userId = localStorage.getItem("userId");
@@ -278,4 +278,4 @@ const EditMyOffer = function () {
     </Grid>
   );
 };
-export default EditMyOffer;
+export default EditUserAnnouncement;

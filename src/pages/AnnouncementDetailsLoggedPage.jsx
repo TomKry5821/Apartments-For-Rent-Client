@@ -5,7 +5,7 @@
 
 import React from "react";
 import "../index.css";
-import FullOfferLogged from "../coponents/logged/FullOfferLogged";
+import AnnouncementDetailsLogged from "../coponents/logged/AnnouncementDetailsLogged";
 import NavbarLogged from "../coponents/logged/NavbarLogged";
 
 const FullOfferLoggedPage = function () {
@@ -18,7 +18,7 @@ const FullOfferLoggedPage = function () {
       </div>
       <div className="searchBG">
         <div className="searchBar">
-          <FullOfferLogged />
+          <AnnouncementDetailsLogged />
         </div>
       </div>
     </div>

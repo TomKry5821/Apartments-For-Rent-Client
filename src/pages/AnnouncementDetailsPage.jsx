@@ -5,24 +5,24 @@
 
 import React from "react";
 import "../index.css";
-import EditMyOffer from "../coponents/logged/EditMyOffer";
-import NavbarLogged from "../coponents/logged/NavbarLogged";
+import AnnouncementDetails from "../coponents/AnnouncementDetails";
+import NavbarMain from "../coponents/NavbarMain";
 
-const EditMyOfferPage = function () {
+const FullOfferPage = function () {
   return (
     <div className="main-container">
       <div className="navStrip">
         <div className="navText">
-          <NavbarLogged />
+          <NavbarMain />
         </div>
       </div>
       <div className="searchBG">
         <div className="searchBar">
-          <EditMyOffer />
+          <AnnouncementDetails />
         </div>
       </div>
     </div>
   );
 };
 
-export default EditMyOfferPage;
+export default FullOfferPage;

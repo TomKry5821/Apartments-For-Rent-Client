@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 
 
-const AddOffer = function () {
+const AddAnnouncement = function () {
   const navigate = useNavigate();
 
   const [mainPhoto, setMainPhoto] = useState();
@@ -268,4 +268,4 @@ const AddOffer = function () {
     </Grid>
   );
 };
-export default AddOffer;
+export default AddAnnouncement;

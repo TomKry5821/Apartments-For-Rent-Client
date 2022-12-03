@@ -11,7 +11,7 @@ import {
   Button,
 } from "@mui/material";
 
-const EditPersonalData = function () {
+const EditUserDetails = function () {
   const userId = localStorage.getItem("userId");
   const authotizationToken = localStorage.getItem("authorizationToken");
   const name = localStorage.getItem("userName");
@@ -137,4 +137,4 @@ const EditPersonalData = function () {
     </Card>
   );
 };
-export default EditPersonalData;
+export default EditUserDetails;

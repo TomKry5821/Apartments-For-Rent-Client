@@ -17,14 +17,13 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MessageIcon from "@mui/icons-material/Message";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useEffect, useState, useCallback } from "react";
 
-
-const FullOfferLogged = function () {
+const AnnouncementDetails = function () {
   const navigate = useNavigate();
   const [announcementDetails, setAnnouncementDetails] = useState();
   const [announcementId, setAnnouncementId] = useState(0);
@@ -67,7 +66,7 @@ const FullOfferLogged = function () {
             fontFamily: "Titillium Web, sans-serif;",
           }}
           onClick={() => {
-            navigate("/logged");
+            navigate("/");
           }}
         >
           wstecz
@@ -208,4 +207,4 @@ const FullOfferLogged = function () {
     </Grid >
   );
 };
-export default FullOfferLogged;
+export default AnnouncementDetails;

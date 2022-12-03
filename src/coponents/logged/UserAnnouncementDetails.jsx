@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-props-no-spreading */
-import * as React from "react";
 import {
   Card,
   CardHeader,
@@ -15,15 +14,13 @@ import {
   TableContainer,
   TableRow
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import * as React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import MessageIcon from "@mui/icons-material/Message";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 
-const FullOffer = function () {
+const UserAnnouncementDetails = function () {
   const navigate = useNavigate();
   const [announcementDetails, setAnnouncementDetails] = useState();
   const [announcementId, setAnnouncementId] = useState(0);
@@ -55,6 +52,50 @@ const FullOffer = function () {
     setAnnouncementId(announcementId)
   }, [setAnnouncementId]);
 
+  const navigateToEditPage = function () {
+    localStorage.setItem("photos", JSON.stringify(announcementDetails.photos));
+    localStorage.setItem("userId", announcementDetails.userId);
+    localStorage.setItem("announcementId", announcementId);
+    localStorage.setItem("mainPhoto", announcementDetails.mainPhoto);
+    localStorage.setItem("title", announcementDetails.title);
+    localStorage.setItem("city", announcementDetails.city);
+    localStorage.setItem("district", announcementDetails.district);
+    localStorage.setItem("zipCode", announcementDetails.zipCode);
+    localStorage.setItem("street", announcementDetails.street);
+    localStorage.setItem("buildingNumber", announcementDetails.buildingNumber);
+    localStorage.setItem("localNumber", announcementDetails.localNumber);
+    localStorage.setItem("roomsNumber", announcementDetails.roomsNumber);
+    localStorage.setItem("rentalAmount", announcementDetails.rentalAmount);
+    localStorage.setItem("rentalTerm", announcementDetails.rentalTerm);
+    localStorage.setItem("caution", announcementDetails.caution);
+    localStorage.setItem("content", announcementDetails.content);
+    navigate("/logged/profile/offer/edit");
+  }
+
+  const closeAnnouncement = function () {
+    const URL = "http://localhost:8010";
+    const userId = localStorage.getItem("userId");
+    const authorizationToken = localStorage.getItem("authorizationToken");
+    fetch(URL + "/announcement/api/v1/announcements/" + announcementId + "/close/" + userId, {
+      method: "POST",
+      body: {},
+      headers: {
+        'Authorization': authorizationToken
+      }
+    }).then((data) => {
+      if (data.status > 299) {
+        alert("Coś poszło nie tak, spróbuj jeszcze raz");
+      } else {
+        alert("Pomyślnie zamknięto ogłoszenie");
+        navigate("/logged/profile");
+      }
+    })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Coś poszło nie tak, spróbuj jeszcze raz");
+      });
+  }
+
   return (
     <Grid container direction="column" spacing={3}>
       <Grid item>
@@ -66,7 +107,7 @@ const FullOffer = function () {
             fontFamily: "Titillium Web, sans-serif;",
           }}
           onClick={() => {
-            navigate("/");
+            navigate("/logged/profile");
           }}
         >
           wstecz
@@ -112,7 +153,7 @@ const FullOffer = function () {
                             <TableContainer component={Paper}>
                               <Table sx={{ minWidth: 250 }} aria-label="simple table">
                                 <TableBody>
-                                  <TableRow key="roomsNumber" >
+                                  <TableRow key="creationDate" >
                                     <TableCell scope="row">Data utworzenia </TableCell>
                                     <TableCell align="right">{announcementDetails.creationDate}</TableCell>
                                   </TableRow>
@@ -152,9 +193,9 @@ const FullOffer = function () {
                                     <TableCell scope="row">Wysokość kaucji</TableCell>
                                     <TableCell align="right">{announcementDetails.caution}</TableCell>
                                   </TableRow>
-                                  <TableRow key="localNumber">
-                                    <TableCell scope="row">Ilość pokoi</TableCell>
-                                    <TableCell align="right">{announcementDetails.roomsNumber}</TableCell>
+                                  <TableRow key="rentalTerm">
+                                    <TableCell scope="row">Od kiedy można wynająć</TableCell>
+                                    <TableCell align="right">{announcementDetails.rentalTerm}</TableCell>
                                   </TableRow>
                                 </TableBody>
                               </Table>
@@ -171,34 +212,53 @@ const FullOffer = function () {
                 </Card>
               </Grid>
               <Grid item>
-                <Paper>
-                  <Grid container direction="row" justifyContent="space-around">
-                    <Grid item>
-                      <IconButton
-                        aria-label="write a message"
-                        onClick={() => {
-                          alert(
-                            "Aby wysłać wiadomość do innego użytkownika - zaloguj się :)"
-                          );
-                        }}
-                      >
-                        <MessageIcon />
-                      </IconButton>
-                    </Grid>
-                    <Grid item>
-                      <IconButton
-                        aria-label="add to favorites"
-                        onClick={() => {
-                          alert(
-                            "Aby dodać ofertę do ulubionych - zaloguj się :)"
-                          );
-                        }}
-                      >
-                        <FavoriteIcon />
-                      </IconButton>
-                    </Grid>
+                <Grid container direction="row" justifyContent="space-around">
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        color: "rgb(17, 63, 103);",
+                        backgroundColor: "rgb(243, 249, 251);",
+                        fontFamily: "Titillium Web, sans-serif;",
+                      }}
+                      onClick={() => {
+                        navigateToEditPage();
+                      }}
+                    >
+                      edytuj
+                    </Button>
                   </Grid>
-                </Paper>
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        color: "rgb(17, 63, 103);",
+                        backgroundColor: "rgb(243, 249, 251);",
+                        fontFamily: "Titillium Web, sans-serif;",
+                      }}
+                      onClick={() => {
+                        closeAnnouncement();
+                      }}
+                    >
+                      zamknij
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        color: "rgb(17, 63, 103);",
+                        backgroundColor: "rgb(243, 249, 251);",
+                        fontFamily: "Titillium Web, sans-serif;",
+                      }}
+                      onClick={() => {
+                        navigate("/logged/profile");
+                      }}
+                    >
+                      mój profil
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -207,4 +267,4 @@ const FullOffer = function () {
     </Grid >
   );
 };
-export default FullOffer;
+export default UserAnnouncementDetails;

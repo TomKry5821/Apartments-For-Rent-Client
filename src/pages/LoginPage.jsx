@@ -2,7 +2,7 @@
 import { React } from "react";
 import { Grid } from "@mui/material";
 import Filter from "../coponents/Filter";
-import Offers from "../coponents/Offers";
+import Offers from "../coponents/AllAnnouncements";
 import NavbarLogin from "../coponents/NavbarLogin";
 
 const LoginPage = function () {

@@ -2,7 +2,7 @@
 import { React } from "react";
 import { Grid } from "@mui/material";
 import Filter from "../coponents/Filter";
-import Offers from "../coponents/Offers";
+import AllAnnouncements from "../coponents/AllAnnouncements";
 import NavbarRegister from "../coponents/NavbarRegister";
 
 const RegisterPage = function () {
@@ -20,10 +20,7 @@ const RegisterPage = function () {
               <Filter />
             </Grid>
             <Grid item alignContent="baseline">
-              <Offers />
-              <Offers />
-              <Offers />
-              <Offers />
+              <AllAnnouncements />
             </Grid>
           </Grid>
         </div>

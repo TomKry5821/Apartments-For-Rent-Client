@@ -3,7 +3,7 @@ import { Button, Card, CardHeader, CardMedia, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 
-const MyOffers = function () {
+const UserAnnouncements = function () {
   const navigate = useNavigate();
   const [announcements, setAnnouncements] = useState([]);
   const [userId, setUserId] = useState(0);
@@ -65,4 +65,4 @@ const MyOffers = function () {
   );
 };
 
-export default MyOffers;
+export default UserAnnouncements;

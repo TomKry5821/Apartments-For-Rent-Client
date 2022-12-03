@@ -7,7 +7,7 @@ import { Grid } from "@mui/material";
 import { useEffect, useState, useCallback } from "react";
 import axios from 'axios';
 
-const PersonalData = function () {
+const UserDetails = function () {
   const [userDetails, setUserDetails] = useState(null);
   const [userId, setUserId] = useState(0);
 
@@ -120,4 +120,4 @@ const PersonalData = function () {
     </Card>
   );
 };
-export default PersonalData;
+export default UserDetails;
