@@ -21,9 +21,6 @@ const LoggedMainPage = function () {
             </Grid>
             <Grid item alignContent="baseline">
               <OffersLogged />
-              <OffersLogged />
-              <OffersLogged />
-              <OffersLogged />
             </Grid>
           </Grid>
         </div>

@@ -9,22 +9,53 @@ import {
   Grid,
   Paper,
   Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MessageIcon from "@mui/icons-material/Message";
-import OfferDetails from "../OfferDetails";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import kitchen from "../../images/kitchen.jpeg";
-import livingRoom from "../../images/livingRoom.jpeg";
-import bedroom from "../../images/bedroom.jpeg";
-import view from "../../images/view.jpeg";
-import garage from "../../images/garage.jpeg";
+import { useEffect, useState, useCallback } from "react";
+
 
 const FullOfferLogged = function () {
   const navigate = useNavigate();
+  const [announcementDetails, setAnnouncementDetails] = useState();
+  const [announcementId, setAnnouncementId] = useState(0);
+
+  const getAnnouncementDetails = useCallback(() => {
+    const URL = "http://localhost:8010";
+    fetch(URL + "/announcement/api/v1/public/announcements/" + announcementId, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        setAnnouncementDetails(data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Coś poszło nie tak");
+      });
+  }, [announcementId]);
+
+  useEffect(() => {
+    if (announcementId) getAnnouncementDetails();
+  }, [getAnnouncementDetails, announcementId]);
+
+  useEffect(() => {
+    const announcementId = localStorage.getItem("announcementId");
+    setAnnouncementId(announcementId)
+  }, [setAnnouncementId]);
+
   return (
     <Grid container direction="column" spacing={3}>
       <Grid item>
@@ -44,45 +75,98 @@ const FullOfferLogged = function () {
       </Grid>
       <Grid item>
         <Grid container justifyContent="space-between">
-          <Grid item>
-            <Carousel width="600px">
-              <div>
-                <img src={kitchen} alt="" />
-              </div>
-              <div>
-                <img src={bedroom} alt="" />
-              </div>
-              <div>
-                <img src={livingRoom} alt="" />
-              </div>
-              <div>
-                <img src={view} alt="" />
-              </div>
-              <div>
-                <img src={garage} alt="" />
-              </div>
-            </Carousel>
-          </Grid>
+          {
+            !!announcementDetails && (
+
+              <Grid item>
+                <Carousel width="600px">
+                  {
+                    < div >
+                      <img src={"data:image/png;base64," + announcementDetails.mainPhoto} />
+                    </div>
+                  }
+                  {
+                    announcementDetails.photos.map((photo) => (
+                      <div>
+                        <img src={"data:image/png;base64," + photo} />
+                      </div>
+                    ))
+                  }
+                </Carousel>
+              </Grid>
+            )}
           <Grid item>
             <Grid container direction="column" spacing={3}>
               <Grid item>
                 <Card sx={{ width: "600px" }}>
-                  <CardHeader
-                    title="Mieszkanie 3 pokojowe - centrum Gliwic"
-                    subheader="14 Wrzesień 2022"
-                  />
+                  {!!announcementDetails && (
+                    <CardHeader
+                      title={announcementDetails.title}
+                      subheader={announcementDetails.username}
+                    />
+                  )}
                   <CardContent>
                     <Grid container direction="column" spacing={3}>
-                      <Grid item>
-                        <OfferDetails />
-                      </Grid>
-                      <Grid item>
-                        Sprzedam mieszkanie 3 pokojowe w spokojnej okolicy,
-                        bezczynszowe. Miejsce garażowe. Teren ogrodzony z
-                        pięknym widokiem. Blisko centrum. Mieszkanie bardzo
-                        jasne i czyste. Dostępne od zaraz. Więcej informacji w
-                        wiadomości prywatnej.{" "}
-                      </Grid>
+                      {
+                        !!announcementDetails && (
+                          <Grid item>
+                            <TableContainer component={Paper}>
+                              <Table sx={{ minWidth: 250 }} aria-label="simple table">
+                                <TableBody>
+                                  <TableRow key="roomsNumber" >
+                                    <TableCell scope="row">Data utworzenia </TableCell>
+                                    <TableCell align="right">{announcementDetails.creationDate}</TableCell>
+                                  </TableRow>
+                                  <TableRow key="district">
+                                    <TableCell scope="row">Województwo</TableCell>
+                                    <TableCell align="right">{announcementDetails.district}</TableCell>
+                                  </TableRow>
+                                  <TableRow key="city">
+                                    <TableCell scope="row">Miasto</TableCell>
+                                    <TableCell align="right">{announcementDetails.city}</TableCell>
+                                  </TableRow>
+                                  <TableRow key="zipCode">
+                                    <TableCell scope="row">Kod pocztowy</TableCell>
+                                    <TableCell align="right">{announcementDetails.zipCode}</TableCell>
+                                  </TableRow>
+                                  <TableRow key="street">
+                                    <TableCell scope="row">Ulica</TableCell>
+                                    <TableCell align="right">{announcementDetails.street}</TableCell>
+                                  </TableRow>
+                                  <TableRow key="buildingNumber" >
+                                    <TableCell scope="row">Numer budynku</TableCell>
+                                    <TableCell align="right">{announcementDetails.buildingNumber}</TableCell>
+                                  </TableRow>
+                                  <TableRow key="localNumber">
+                                    <TableCell scope="row">Numer lokalu</TableCell>
+                                    <TableCell align="right">{announcementDetails.localNumber}</TableCell>
+                                  </TableRow>
+                                  <TableRow key="roomsNumber" >
+                                    <TableCell scope="row">Ilość pokoi</TableCell>
+                                    <TableCell align="right">{announcementDetails.roomsNumber}</TableCell>
+                                  </TableRow>
+                                  <TableRow key="rentalAmount">
+                                    <TableCell scope="row">Opłata miesięczna</TableCell>
+                                    <TableCell align="right">{announcementDetails.rentalAmount}zł</TableCell>
+                                  </TableRow>
+                                  <TableRow key="caution" >
+                                    <TableCell scope="row">Wysokość kaucji</TableCell>
+                                    <TableCell align="right">{announcementDetails.caution}</TableCell>
+                                  </TableRow>
+                                  <TableRow key="localNumber">
+                                    <TableCell scope="row">Ilość pokoi</TableCell>
+                                    <TableCell align="right">{announcementDetails.roomsNumber}</TableCell>
+                                  </TableRow>
+                                </TableBody>
+                              </Table>
+                            </TableContainer>
+                          </Grid>
+                        )}
+                      {!!announcementDetails && (
+                        <Grid item>
+                          {announcementDetails.content}.{" "}
+                        </Grid>
+                      )}
                     </Grid>
                   </CardContent>
                 </Card>
@@ -91,7 +175,14 @@ const FullOfferLogged = function () {
                 <Paper>
                   <Grid container direction="row" justifyContent="space-around">
                     <Grid item>
-                      <IconButton aria-label="write a message">
+                      <IconButton
+                        aria-label="write a message"
+                        onClick={() => {
+                          alert(
+                            "Aby wysłać wiadomość do innego użytkownika - zaloguj się :)"
+                          );
+                        }}
+                      >
                         <MessageIcon />
                       </IconButton>
                     </Grid>
@@ -99,7 +190,9 @@ const FullOfferLogged = function () {
                       <IconButton
                         aria-label="add to favorites"
                         onClick={() => {
-                          alert("Dodano do ulubionych :)");
+                          alert(
+                            "Aby dodać ofertę do ulubionych - zaloguj się :)"
+                          );
                         }}
                       >
                         <FavoriteIcon />
@@ -112,7 +205,7 @@ const FullOfferLogged = function () {
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </Grid >
   );
 };
 export default FullOfferLogged;
