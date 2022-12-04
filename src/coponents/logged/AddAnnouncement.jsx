@@ -48,7 +48,11 @@ const AddAnnouncement = function () {
 
   const handlePhotosChange = (e) => {
     if (e.target.files) {
-      setPhotos(e.target.files);
+      if (e.target.files.length > 3) {
+        alert("Można dodać maksymalnie 3 dodatkowe zdjęcia");
+      } else {
+        setPhotos(e.target.files);
+      }
     }
   };
 
@@ -237,7 +241,7 @@ const AddAnnouncement = function () {
                       </Grid>
                       <Grid item>
                         <div>
-                          <h1>Dodatkowe zdjęcia</h1>
+                          <h1>Dodatkowe zdjęcia(maksymalnie 3)</h1>
                           <br></br>
                         </div>
                         <div>
