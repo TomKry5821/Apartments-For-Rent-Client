@@ -24,6 +24,27 @@ const NavbarLogged = function () {
   const handleClick = () => {
     setOpen(!open);
   };
+
+  const logout = function () {
+    const URL = "http://localhost:8010";
+    const userId = localStorage.getItem("userId");
+    const authorizationToken = localStorage.getItem("authorizationToken");
+    fetch(URL + "/user/api/v1/auth/" + userId + "/logout", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': authorizationToken
+      }
+    }).then((data) => {
+      console.log('Success:', data);
+      alert("Wylogowano pomyślnie");
+      navigate("/");
+    })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Coś poszło nie tak, spróbuj jeszcze raz");
+      });
+  }
   return (
     <Grid container direction="row" justifyContent="space-between">
       <Grid item>
@@ -93,7 +114,7 @@ const NavbarLogged = function () {
           <IconButton
             size="large"
             onClick={() => {
-              navigate("/");
+              logout();
             }}
           >
             <ExitToAppIcon fontSize="large" />

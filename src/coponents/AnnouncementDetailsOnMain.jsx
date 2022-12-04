@@ -8,17 +8,15 @@ import {
 import Paper from "@mui/material/Paper";
 import * as React from "react";
 
-const OfferDetails = function () {
+const AnnouncementDetailsOnMain = function () {
   function createData(key, value) {
     return { key, value };
   }
   const rows1 = [
     createData("Województwo", "Śląskie"),
     createData("Miasto", "Gliwice"),
-    createData("Kod pocztowy", "44-100"),
-    createData("Ulica", "Bojkowska"),
-    createData("Numer budynku", 5),
-    createData("Numer lokalu", 23),
+    createData("Cena", "102901"),
+    createData("Liczba pokoi", "3"),
   ];
 
   return (
@@ -37,4 +35,4 @@ const OfferDetails = function () {
   );
 };
 
-export default OfferDetails;
+export default AnnouncementDetailsOnMain;

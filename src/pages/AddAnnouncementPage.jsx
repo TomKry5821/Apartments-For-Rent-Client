@@ -5,10 +5,10 @@
 
 import React from "react";
 import "../index.css";
-import AddOffer from "../coponents/logged/AddOffer";
+import AddAnnouncement from "../coponents/logged/AddAnnouncement";
 import NavbarLogged from "../coponents/logged/NavbarLogged";
 
-const AddOfferPage = function () {
+const AddAnnouncementPage = function () {
   return (
     <div className="main-container">
       <div className="navStrip">
@@ -18,11 +18,11 @@ const AddOfferPage = function () {
       </div>
       <div className="searchBG">
         <div className="searchBar">
-          <AddOffer />
+          <AddAnnouncement />
         </div>
       </div>
     </div>
   );
 };
 
-export default AddOfferPage;
+export default AddAnnouncementPage;

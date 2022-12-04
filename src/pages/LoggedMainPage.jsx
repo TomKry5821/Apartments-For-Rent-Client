@@ -2,7 +2,7 @@
 import { React } from "react";
 import { Grid } from "@mui/material";
 import Filter from "../coponents/Filter";
-import OffersLogged from "../coponents/logged/OffersLogged";
+import AllAnnouncementsLogged from "../coponents/logged/AllAnnouncementsLogged";
 import NavbarLogged from "../coponents/logged/NavbarLogged";
 
 const LoggedMainPage = function () {
@@ -20,10 +20,7 @@ const LoggedMainPage = function () {
               <Filter />
             </Grid>
             <Grid item alignContent="baseline">
-              <OffersLogged />
-              <OffersLogged />
-              <OffersLogged />
-              <OffersLogged />
+              <AllAnnouncementsLogged />
             </Grid>
           </Grid>
         </div>

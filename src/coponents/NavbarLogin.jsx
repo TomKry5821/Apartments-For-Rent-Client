@@ -14,17 +14,43 @@ import {
 } from "@mui/material";
 import React from "react";
 import "../index.css";
-import { useContext } from 'react'
+import { useState } from 'react'
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
 
 const NavbarLogin = function () {
   const navigate = useNavigate();
 
-  const { loginUser, error } = useContext(UserContext)
+  const [error, setError] = useState(false);
   const email = useRef("")
   const password = useRef("")
+
+  const loginUser = function (email, password) {
+    const URL = "http://localhost:8010";
+    const body = {
+      "email": email,
+      "password": password
+    }
+    fetch(URL + "/user/api/v1/auth/login", {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ''
+      }
+    }).then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        localStorage.setItem("userId", data.id);
+        localStorage.setItem("authorizationToken", data.accessToken);
+        alert("Pomyślnie zalogowano");
+        navigate("/logged");
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Coś poszło nie tak, spróbuj jeszcze raz");
+      });
+  }
 
   return (
     <Grid container direction="row" justifyContent="space-between">
@@ -41,7 +67,7 @@ const NavbarLogin = function () {
             navigate("/");
           }}
         >
-          SUPER MIESZKANIA
+          AFR
         </Button>{" "}
       </Grid>
 
@@ -86,11 +112,6 @@ const NavbarLogin = function () {
                     email.current.value,
                     password.current.value
                   );
-                  if (error != null) {
-                    alert("Invalid e-mail or password");
-                  } else {
-                    navigate("/logged");
-                  }
                 }}
               >
                 zaloguj się
