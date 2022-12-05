@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-shadow */
-import { Button, Grid, IconButton } from "@mui/material";
+import { Button, Grid, IconButton, Select, MenuItem } from "@mui/material";
 import React from "react";
 import "../../index.css";
 import { useNavigate } from "react-router-dom";
@@ -19,11 +19,6 @@ import List from "@mui/material/List";
 
 const NavbarLogged = function () {
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
 
   const logout = function () {
     const URL = "http://localhost:8010";
@@ -64,10 +59,24 @@ const NavbarLogged = function () {
         </Button>{" "}
       </Grid>
       <Grid item spacing={30}>
+        <Tooltip>
+          < Select
+            sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }}
+            IconComponent={FavouriteIcon}
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Age"
+          >
+            <MenuItem >Ten</MenuItem>
+            <MenuItem >Twenty</MenuItem>
+            <MenuItem >Thirty</MenuItem>
+          </Select >
+        </Tooltip>
+
         <Tooltip title="Mój profil">
-          <IconButton size="large">
+          <IconButton size="medium">
             <PersonIcon
-              fontSize="large"
+              fontSize="medium"
               onClick={() => {
                 navigate("/logged/profile");
               }}
@@ -76,9 +85,9 @@ const NavbarLogged = function () {
         </Tooltip>
 
         <Tooltip title="Wiadomości">
-          <IconButton size="large">
+          <IconButton size="medium">
             <MessageIcon
-              fontSize="large"
+              fontSize="medium"
               onClick={() => {
                 navigate("/logged/messages");
               }}
@@ -87,37 +96,23 @@ const NavbarLogged = function () {
         </Tooltip>
 
         <Tooltip title="Dodaj ogłoszenie">
-          <IconButton size="large">
+          <IconButton size="medium">
             <AddBusinessIcon
-              fontSize="large"
+              fontSize="medium"
               onClick={() => {
                 navigate("/logged/addOffer");
               }}
             />
           </IconButton>
         </Tooltip>
-
-        <Tooltip title="Ulubione">
-          <IconButton size="large">
-            <FavouriteIcon fontSize="large" onClick={handleClick}>
-              {open ? <ExpandLess /> : <ExpandMore />}
-            </FavouriteIcon>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemText primary="Starred" />
-              </List>
-            </Collapse>
-          </IconButton>
-        </Tooltip>
-
         <Tooltip title="Wyloguj">
           <IconButton
-            size="large"
+            size="medium"
             onClick={() => {
               logout();
             }}
           >
-            <ExitToAppIcon fontSize="large" />
+            <ExitToAppIcon fontSize="medium" />
           </IconButton>
         </Tooltip>
       </Grid>
