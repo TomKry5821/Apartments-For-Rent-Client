@@ -37,7 +37,7 @@ const UserAnnouncements = function () {
 
   const navigateToAnnouncementDetails = function (announcementId) {
     localStorage.setItem("announcementId", announcementId);
-    navigate("/logged/profile/offer");
+    navigate("/logged/profile/announcement");
   }
 
   return (

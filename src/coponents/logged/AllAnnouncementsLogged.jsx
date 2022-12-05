@@ -51,7 +51,7 @@ const AllAnnouncementsLogged = function () {
 
   const navigateToAnnouncementDetails = function (announcementId) {
     localStorage.setItem("announcementId", announcementId);
-    navigate("/logged/offer");
+    navigate("/logged/announcement");
   }
 
   const observeAnnouncement = function (announcementId) {

@@ -91,7 +91,7 @@ const EditUserAnnouncement = function () {
           alert("Coś poszło nie tak, sprawdź uzupełnione pola i spróbuj jeszcze raz");
         } else {
           alert("Pomyślnie zmieniono ogłoszenie");
-          navigate("/logged/profile/offer");
+          navigate("/logged/profile/announcement");
         }
       })
       .catch((error) => {

@@ -52,7 +52,7 @@ const AllAnnouncements = function () {
 
   const navigateToAnnouncementDetails = function (announcementId) {
     localStorage.setItem("announcementId", announcementId);
-    navigate("/offer");
+    navigate("/announcement");
   }
 
   return (

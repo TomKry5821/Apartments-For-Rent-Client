@@ -90,6 +90,7 @@ const AddAnnouncement = function () {
           alert("Coś poszło nie tak, sprawdź uzupełnione pola i spróbuj jeszcze raz");
         } else {
           alert("Pomyślnie dodano ogłoszenie");
+          navigate("/logged/profile");
         }
       })
       .catch((error) => {

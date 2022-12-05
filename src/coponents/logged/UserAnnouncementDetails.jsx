@@ -69,7 +69,7 @@ const UserAnnouncementDetails = function () {
     localStorage.setItem("rentalTerm", announcementDetails.rentalTerm);
     localStorage.setItem("caution", announcementDetails.caution);
     localStorage.setItem("content", announcementDetails.content);
-    navigate("/logged/profile/offer/edit");
+    navigate("/logged/profile/announcement/edit");
   }
 
   const closeAnnouncement = function () {

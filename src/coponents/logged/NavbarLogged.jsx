@@ -183,7 +183,7 @@ const NavbarLogged = function () {
             <AddBusinessIcon
               fontSize="medium"
               onClick={() => {
-                navigate("/logged/addOffer");
+                navigate("/logged/addAnnouncement");
               }}
             />
           </IconButton>
