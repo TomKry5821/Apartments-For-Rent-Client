@@ -22,17 +22,17 @@ const App = function () {
     <div>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/offer" element={<AnnouncementDetailsPage />} />
+        <Route path="/announcement" element={<AnnouncementDetailsPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/logged" element={<LoggedMainPage />} />
-        <Route path="/logged/offer" element={<AnnouncementDetailsLoggedPage />} />
+        <Route path="/logged/announcement" element={<AnnouncementDetailsLoggedPage />} />
         <Route path="/logged/profile" element={<MyProfilePage />} />
         <Route path="/logged/profile/edit" element={<EditUserDetailsPage />} />
-        <Route path="/logged/profile/offer" element={<UserAnnouncementdetailsPage />} />
-        <Route path="/logged/addOffer" element={<AddAnnouncementPage />} />
+        <Route path="/logged/profile/announcement" element={<UserAnnouncementdetailsPage />} />
+        <Route path="/logged/addAnnouncement" element={<AddAnnouncementPage />} />
         <Route
-          path="/logged/profile/offer/edit"
+          path="/logged/profile/announcement/edit"
           element={<EditMyAnnouncementPage />}
         />
         <Route path="*" element={<ErrorPage />} />
