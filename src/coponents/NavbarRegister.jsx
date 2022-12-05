@@ -21,7 +21,6 @@ import { useState } from 'react';
 
 
 const NavbarRegister = function () {
-  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
   const name = useRef("");
