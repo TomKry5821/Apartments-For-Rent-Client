@@ -36,19 +36,6 @@ const EditMyProfilePage = function () {
                   <EditUserDetails />
                 </Grid>
                 <Grid item alignSelf="center">
-                  <Button
-                    variant="contained"
-                    sx={{
-                      color: "rgb(17, 63, 103);",
-                      backgroundColor: "rgb(243, 249, 251);",
-                      fontFamily: "Titillium Web, sans-serif;",
-                    }}
-                    onClick={() => {
-                      navigate("/logged/profile");
-                    }}
-                  >
-                    zapisz
-                  </Button>
                 </Grid>
               </Grid>
             </Grid>
