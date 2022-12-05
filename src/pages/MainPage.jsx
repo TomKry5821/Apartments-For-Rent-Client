@@ -21,9 +21,6 @@ const MainPage = function () {
       <div className="searchBG">
         <div className="searchBar">
           <Grid container direction="row" justifyContent="space-around">
-            <Grid item>
-              <Filter />
-            </Grid>
             <Grid item alignContent="baseline">
               <AllAnnouncements />
             </Grid>
