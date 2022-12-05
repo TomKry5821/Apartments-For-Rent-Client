@@ -21,9 +21,6 @@ const LoginPage = function () {
             </Grid>
             <Grid item alignContent="baseline">
               <Offers />
-              <Offers />
-              <Offers />
-              <Offers />
             </Grid>
           </Grid>
         </div>
