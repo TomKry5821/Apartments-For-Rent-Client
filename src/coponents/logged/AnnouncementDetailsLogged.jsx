@@ -56,6 +56,27 @@ const AnnouncementDetailsLogged = function () {
     setAnnouncementId(announcementId)
   }, [setAnnouncementId]);
 
+  const observeAnnouncement = function (announcementId) {
+    const URL = "http://localhost:8010";
+    const userId = localStorage.getItem("userId");
+    const authorizationToken = localStorage.getItem("authorizationToken");
+    fetch(URL + "/announcement/api/v1/announcements/" + announcementId + "/observe/" + userId, {
+      method: "POST",
+      body: {},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': authorizationToken
+      }
+    }).then((data) => {
+      console.log('Success:', data);
+      alert("Pomyślnie zaobserowano ogłoszenie");
+    })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Nie udało się zaobserwować ogłoszenia");
+      });
+  }
+
   return (
     <Grid container direction="column" spacing={3}>
       <Grid item>
@@ -190,9 +211,7 @@ const AnnouncementDetailsLogged = function () {
                       <IconButton
                         aria-label="add to favorites"
                         onClick={() => {
-                          alert(
-                            "Aby dodać ofertę do ulubionych - zaloguj się :)"
-                          );
+                          observeAnnouncement(announcementId);
                         }}
                       >
                         <FavoriteIcon />
