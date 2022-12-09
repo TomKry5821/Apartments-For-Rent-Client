@@ -6,7 +6,6 @@
 import React from "react";
 import "../index.css";
 import { Grid } from "@mui/material";
-import Filter from "../coponents/Filter";
 import AllAnnouncements from "../coponents/AllAnnouncements";
 import NavbarMain from "../coponents/NavbarMain";
 

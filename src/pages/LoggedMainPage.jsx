@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 import { React } from "react";
 import { Grid } from "@mui/material";
-import Filter from "../coponents/Filter";
 import AllAnnouncementsLogged from "../coponents/logged/AllAnnouncementsLogged";
 import NavbarLogged from "../coponents/logged/NavbarLogged";
 
@@ -17,7 +16,6 @@ const LoggedMainPage = function () {
         <div className="searchBar">
           <Grid container direction="row" justifyContent="space-around">
             <Grid item>
-              <Filter />
             </Grid>
             <Grid item alignContent="baseline">
               <AllAnnouncementsLogged />

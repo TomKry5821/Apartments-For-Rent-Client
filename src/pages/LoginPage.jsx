@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 import { React } from "react";
 import { Grid } from "@mui/material";
-import Filter from "../coponents/Filter";
 import Offers from "../coponents/AllAnnouncements";
 import NavbarLogin from "../coponents/NavbarLogin";
 
@@ -17,7 +16,6 @@ const LoginPage = function () {
         <div className="searchBar">
           <Grid container direction="row" justifyContent="space-around">
             <Grid item>
-              <Filter />
             </Grid>
             <Grid item alignContent="baseline">
               <Offers />
