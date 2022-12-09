@@ -15,6 +15,7 @@ import AddAnnouncementPage from "./pages/AddAnnouncementPage";
 import UserAnnouncementdetailsPage from "./pages/UserAnnouncementDetailsPage";
 import EditMyAnnouncementPage from "./pages/EditMyAnnouncementPage";
 import AnnouncementDetailsLoggedPage from "./pages/AnnouncementDetailsLoggedPage";
+import MessagesPage from "./pages/MessagesPage";
 
 export const UserContext = React.createContext({});
 const App = function () {
@@ -31,6 +32,7 @@ const App = function () {
         <Route path="/logged/profile/edit" element={<EditUserDetailsPage />} />
         <Route path="/logged/profile/announcement" element={<UserAnnouncementdetailsPage />} />
         <Route path="/logged/addAnnouncement" element={<AddAnnouncementPage />} />
+        <Route path="/logged/messages" element={<MessagesPage />} />
         <Route
           path="/logged/profile/announcement/edit"
           element={<EditMyAnnouncementPage />}
