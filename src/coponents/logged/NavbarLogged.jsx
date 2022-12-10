@@ -83,7 +83,7 @@ const NavbarLogged = function () {
   }, [getObservedAnnouncements]);
 
   useEffect(() => {
-    console.log("TUTAJ" + observedAnnouncements);
+    console.log("Pobieranie obserwowanych ogłoszeń");
   }, []);
 
   return (
