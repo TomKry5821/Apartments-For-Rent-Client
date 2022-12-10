@@ -13,11 +13,12 @@ import {
 // import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from 'react';
 import SendIcon from "@mui/icons-material/Send";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 const Messages = function () {
     const [conversations, setConversations] = useState([]);
     const [actualConversation, setActualConversation] = useState([]);
+    let attachments = [];
     const userId = localStorage.getItem("userId");
     const message = useRef("");
 
@@ -39,6 +40,7 @@ const Messages = function () {
             .catch((error) => {
                 console.error('Error:', error);
                 alert("Nie udało się załadować konwersacji");
+                setConversations([]);
             });
     }, []);
 
@@ -76,9 +78,9 @@ const Messages = function () {
         const userId = localStorage.getItem("userId");
         const authorizationToken = localStorage.getItem("authorizationToken");
         const data = new FormData();
-        // for (const item of attachments) {
-        //     data.append('attachments', item);
-        // }
+        for (const item of attachments) {
+            data.append('attachments', item);
+        }
         data.append('receiverId', receiverId);
         data.append('senderId', userId);
         data.append('message', message.current.value);
@@ -99,6 +101,17 @@ const Messages = function () {
                 console.error('Error:', error);
                 alert("Coś poszło nie tak, nie udało sie wysłać wiadomości");
             });
+    };
+
+    const handleChange = (e) => {
+        if (e.target.files) {
+            if (e.target.files.length > 3) {
+                alert("Można dodać maksymalnie 3 załączniki");
+            } else {
+                attachments = e.target.files;
+                console.log("tutaj " + attachments);
+            }
+        }
     };
 
     return (
@@ -145,6 +158,18 @@ const Messages = function () {
                                                 <Grid container>
                                                     <Grid item xs={12}>
                                                         <ListItemText align={message.senderId == userId ? "right" : "left"} primary={message.message} />
+                                                        <ListItem align={message.senderId == userId ? "right" : "left"}>
+                                                            {message.attachments.map(attachment => (
+                                                                <div>
+                                                                    <a
+                                                                        href={"data:image/png;base64," + attachment}
+                                                                        download="załącznik">
+                                                                        <UploadFileIcon />
+                                                                    </a>
+                                                                </div>
+                                                            ))}
+                                                        </ListItem>
+
                                                     </Grid>
                                                     <Grid item xs={12}>
                                                         <ListItemText align={message.senderId == userId ? "right" : "left"} secondary={new Date(message.sendDate).toLocaleString()} />
@@ -172,21 +197,21 @@ const Messages = function () {
                                             inputRef={message}
                                         />
                                     </Grid>
-
-                                    <Grid item>
-                                        <Fab aria-label="add">
-                                            <AttachFileIcon />
-                                        </Fab>
-                                    </Grid>
                                     <Grid item>
                                         <Fab color="primary" aria-label="send">
                                             <SendIcon onClick={() => sendMessage(actualConversation[0].senderId == userId ? actualConversation[0].receiverId : actualConversation[0].senderId)} />
                                         </Fab>
                                     </Grid>
+                                    <Grid item direction="column">
+                                        <input
+                                            type="file"
+                                            multiple
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>
                                 </Grid>
                             )}
                         </Grid>
-
                     </Grid>
                 </Grid>
             </div>
