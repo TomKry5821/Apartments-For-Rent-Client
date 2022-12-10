@@ -13,7 +13,8 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableRow
+  TableRow,
+  TextField
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
@@ -21,13 +22,23 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MessageIcon from "@mui/icons-material/Message";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
+import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 
 const AnnouncementDetailsLogged = function () {
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
   const [announcementDetails, setAnnouncementDetails] = useState();
   const [announcementId, setAnnouncementId] = useState(0);
+  let attachments = [];
+  const message = useRef("");
 
   const getAnnouncementDetails = useCallback(() => {
     const URL = "http://localhost:8010";
@@ -77,8 +88,120 @@ const AnnouncementDetailsLogged = function () {
       });
   }
 
+  const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+      padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+      padding: theme.spacing(1),
+    },
+  }));
+
+  function BootstrapDialogTitle(props) {
+    const { children, onClose, ...other } = props;
+
+    return (
+      <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+        {children}
+        {onClose ? (
+          <IconButton
+            aria-label="close"
+            onClick={onClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        ) : null}
+      </DialogTitle>
+    );
+  }
+
+  const handleAttachmentsChange = (e) => {
+    if (e.target.files) {
+      if (e.target.files.length > 3) {
+        alert("Można dodać maksymalnie 3 załączniki");
+      } else {
+        attachments = e.target.files;
+      }
+    }
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const closeDialog = () => {
+    setOpen(false);
+  }
+
+  const sendMessage = () => {
+    const URL = "http://localhost:8010";
+    const userId = localStorage.getItem("userId");
+    const authorizationToken = localStorage.getItem("authorizationToken");
+    const data = new FormData();
+    for (const item of attachments) {
+      data.append('attachments', item);
+    }
+    data.append('receiverId', announcementDetails.userId);
+    data.append('senderId', userId);
+    data.append('message', message.current.value);
+    fetch(URL + "/message/api/v1/messages", {
+      method: "POST",
+      body: data,
+      headers: {
+        'Authorization': authorizationToken
+      }
+    }).then((data) => {
+      if (data.status > 299) {
+        alert("Coś poszło nie tak, nie udało sie wysłać wiadomości");
+      } else {
+        alert("Pomyślnie wysłano wiadomość");
+      }
+    })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Coś poszło nie tak, nie udało sie wysłać wiadomości");
+      });
+    setOpen(false);
+  };
+
   return (
+
     <Grid container direction="column" spacing={3}>
+      <BootstrapDialog
+        aria-labelledby="customized-dialog-title"
+        open={open}
+        onClose={closeDialog}
+      >
+        <BootstrapDialogTitle id="customized-dialog-title" onClose={closeDialog} fullWidth>
+          Wyślij wiadomość do użytkownika {!!announcementDetails && (announcementDetails.username)}
+        </BootstrapDialogTitle>
+        <DialogContent dividers>
+          <TextField
+            id="outlined-multiline-flexible"
+            multiline
+            maxRows={20}
+            fullWidth
+            inputRef={message}
+          />
+          <div>
+            Załączniki
+            <div>
+              <input multiple type="file" onChange={handleAttachmentsChange} />
+            </div>
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={sendMessage}>
+            Wyślij wiadomość
+          </Button>
+        </DialogActions>
+      </BootstrapDialog>
       <Grid item>
         <Button
           variant="contained"
@@ -134,7 +257,7 @@ const AnnouncementDetailsLogged = function () {
                             <TableContainer component={Paper}>
                               <Table sx={{ minWidth: 250 }} aria-label="simple table">
                                 <TableBody>
-                                  <TableRow key="roomsNumber" >
+                                  <TableRow key="createdDate" >
                                     <TableCell scope="row">Data utworzenia </TableCell>
                                     <TableCell align="right">{announcementDetails.creationDate}</TableCell>
                                   </TableRow>
@@ -174,10 +297,6 @@ const AnnouncementDetailsLogged = function () {
                                     <TableCell scope="row">Wysokość kaucji</TableCell>
                                     <TableCell align="right">{announcementDetails.caution}</TableCell>
                                   </TableRow>
-                                  <TableRow key="localNumber">
-                                    <TableCell scope="row">Ilość pokoi</TableCell>
-                                    <TableCell align="right">{announcementDetails.roomsNumber}</TableCell>
-                                  </TableRow>
                                 </TableBody>
                               </Table>
                             </TableContainer>
@@ -199,9 +318,7 @@ const AnnouncementDetailsLogged = function () {
                       <IconButton
                         aria-label="write a message"
                         onClick={() => {
-                          alert(
-                            "Aby wysłać wiadomość do innego użytkownika - zaloguj się :)"
-                          );
+                          handleClickOpen();
                         }}
                       >
                         <MessageIcon />
